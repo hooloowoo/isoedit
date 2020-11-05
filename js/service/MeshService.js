@@ -66,7 +66,11 @@ var meshService = (function() {
     }
 
     function init() {
-        mesh=JSON.parse(localStorage.mesh);
+        if (localStorage.mesh !== undefined) {
+            mesh = JSON.parse(localStorage.mesh);
+        } else {
+            newMesh();
+        }
     }
 
     function getMesh() {
