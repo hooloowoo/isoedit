@@ -1,0 +1,121 @@
+
+
+
+div#editbar {
+    width: 100%;
+    padding-left: 5px;
+    border-bottom: 1px solid #585858;
+
+}
+
+#facepane {
+    display: inline-block;
+}
+
+#movepane {
+    display: inline-block;
+}
+
+.inpCoord {
+    position: absolute;
+    background-color: #303840;
+    width: 2.5em;
+    top: 14px;
+    display: inline-block;
+    height: 26px;
+    bottom: 4px;
+    left: 0;
+    border: none;
+    color: #C0FFFF;
+    font-size: 18px;
+}
+
+.point-frame {
+    margin: 4px 8px 4px 4px;
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    border: 1px solid #585858;
+    background-color: #283038;
+    text-decoration: none;
+    color: #C0FFFF;
+    width: 6.3em;
+    height: 40px;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.coord-title {
+    position: absolute;
+    display: inline-block;
+    top: 2px;
+    left: 4px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.edit-togglebuttonlink {
+    margin: 4px;
+    font-size: 70%;
+    border: 1px solid #585858;
+    background: none;
+    text-decoration: none;
+    color: #E0E0E0;
+    width: 48px;
+    height: 40px;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.edit-toggleindicator {
+    position: absolute;
+    top : 5px;
+    right : 5px;
+    width : 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: #505050;
+    box-shadow: inset 0px 1px 0px 0px rgba(250,250,250,0.5),0px 0px 3px 2px rgba(135,135,135,0.5);
+
+}
+.edit-buttontext {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.edit-upload {
+    margin: 4px;
+    font-size: 70%;
+    border: 1px solid #585858;
+    background: none;
+    text-decoration: none;
+    color: #E0E0E0;
+    width: 48px;
+    height: 40px;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.edit-upload > input {
+    vertical-align: middle;
+    display: none;
+}
+
+.edit-upload > label {
+    display: block;
+    width: 48px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    padding-top: 30%;
+}

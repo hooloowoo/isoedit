@@ -1,0 +1,61 @@
+#editorpane {
+    position: absolute;
+    top: 0px;
+    left : 0px;
+    width : 300px;
+    overflow: auto;
+    z-index: 99;
+}
+
+#faceList {
+    overflow: auto;
+}
+
+
+.facerow {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    padding-top: 3px;
+    margin: 2px;
+    border-radius: 12px;
+    text-align: center;
+    background-color: #E0E0E0;
+    cursor: pointer;
+}
+
+.facerow:hover {
+    background-color: #F0F0F0;
+} 
+
+
+
+
+#faceeditor {
+
+}
+
+#vertices {
+    min-height : 120px;
+}
+
+.vxrow {
+}
+
+.vxlabel {
+    display: inline-block;
+}
+
+.vxidiv {
+    display: inline-block;
+}
+
+.vxinp {
+    display: inline-block;
+    width: 50px;
+}
+
+#divSaved {
+    position: absolute;
+    z-index: 99;
+}

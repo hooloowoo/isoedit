@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ISO editor</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+    <link href="css/main.css" rel="stylesheet" media="screen" type="text/css">
+    <link href="css/toolbar.css" rel="stylesheet" media="screen" type="text/css">
+    <link href="css/editbar.css" rel="stylesheet" media="screen" type="text/css">
+
+    <script src="js/view/ToolBarView.js"></script>
+    <script src="js/view/EditBarView.js"></script>
+    <script src="js/view/CanvasView.js"></script>
+    <script src="js/view/MeshView.js"></script>
+    <script src="js/main.js"></script>
+    <script src="../js/util/Util.js"></script>
+    <script src="../js/util/Coord.js"></script>
+    <script src="../js/util/Gui.js"></script>
+    <script src="../js/service/HidService.js"></script>
+    <script src="../js/service/AnimService.js"></script>
+    <script src="js/service/MeshService.js"></script>
+
+</head>
+<body onload="main.init()" onresize="main.onresize()">
+    <div id="tools">
+        <div id="toolbar"></div>
+        <div id="editbar"></div>
+    </div>
+    <div id="content"></div>
+</body>
+</html>
+

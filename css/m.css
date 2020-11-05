@@ -1,0 +1,300 @@
+body {
+    font-family: 'Didact Gothic', sans-serif;    
+/*    font-family: 'Century Gothic';*/
+    letter-spacing: 1px;
+    font-size: 16px;
+    margin : 0;
+    padding: 0;
+    display: block;
+    height: 100%;
+}
+
+html {
+    margin-top: 0;
+    height: 100%;
+}
+
+#cont {
+    margin-top: 0;
+    padding-top: 20px;
+}
+
+#tiles {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    overflow-y: auto; 
+}
+
+#atiles {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    overflow-y: auto; 
+}
+
+#itiles {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    margin: auto; 
+}
+
+.tile {
+    cursor: pointer;
+    margin: 6px;
+    display: inline-block;
+    position: relative;
+}
+
+
+
+.tile .tileimage {
+    margin: 6px;
+    background-color: #E0E0E0;
+    display: inline-block;
+    width : 160px;
+    height: 160px;
+    border: 1px solid #98ACAF;
+    border-radius: 80px;
+    box-shadow: 2px 2px 8px #788C8F;
+    position: relative;
+}
+ 
+.tile .tileimage:hover {
+    box-shadow: 2px 1px 24px #788C8F;
+    animation-name: tilehover;
+    animation-duration: 300ms;    
+    border-radius: 86px;
+    width: 172px;
+    height: 172px;
+    margin: 0px;
+    font-size: 17px;
+}
+ 
+@keyframes tilehover {
+    from {
+        font-size: 16px;
+        border-radius: 80px;
+        width: 160px;
+        height: 160px;
+        margin: 6px;
+        box-shadow: 2px 1px 12px #808080;
+    }
+
+    to {
+        font-size: 17px;
+        border-radius: 86px;
+        width : 172px;
+        height: 172px;
+        margin: 0px;
+        box-shadow: 2px 1px 24px #808080;
+    }
+}
+
+.tiletitle {
+    color : #404040;
+    font-variant: small-caps;
+    font-size: 16px;
+    margin-top: auto;
+    display: block;
+    text-align: center;
+} 
+
+
+.smalltile {
+    cursor: pointer;
+    margin: 6px;
+    display: inline-block;
+    position: relative;
+}
+
+.smalltile .tileimage {
+    margin: 6px;
+    display: inline-block;
+    background-color: #E0E0E0;
+    width : 80px;
+    height: 80px;
+    border: 1px solid #98ACAF;
+    border-radius: 40px;
+    box-shadow: 2px 2px 8px #808080;
+    background-size: 100% 100%;
+    position: relative;
+}
+ 
+.smalltile .tileimage:hover {
+    box-shadow: 2px 1px 24px #808080;
+    animation-name: smalltilehover;
+    animation-duration: 300ms;    
+    border-radius: 46px;
+    width: 92px;
+    height: 92px;
+    margin: 0px;
+    font-size: 17px;
+}
+ 
+@keyframes smalltilehover {
+    from {
+        font-size: 16px;
+        border-radius: 40px;
+        width: 80px;
+        height: 80px;
+        margin: 6px;
+        box-shadow: 2px 1px 12px #808080;
+    }
+
+    to {
+        font-size: 17px;
+        border-radius: 46px;
+        width : 92px;
+        height: 92px;
+        margin: 0px;
+        box-shadow: 2px 1px 24px #808080;
+    }
+}
+
+
+
+#txt {
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 8px #788C8F;
+    border-radius: 6px;
+    background-color: #F4FCFF;
+    color: #006888;
+    line-height: 20px;
+    letter-spacing: 1.5px;
+    text-align: justify;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1000px;
+    overflow: auto; 
+}
+
+#txt h1 {
+    letter-spacing: 2px;
+    font-weight: normal;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    width: 100%;
+    background: linear-gradient(135deg,  #F0F8FF 0%,#BFEFF8 100%) no-repeat;
+}
+
+#txt h2 {
+    letter-spacing: 2px;
+    font-weight: normal;
+}
+
+#txt a {
+    text-decoration: none;
+    color: #005878;
+    font-style: italic;
+    letter-spacing: 2px;
+    font-weight: normal;
+}
+
+
+
+#bpane {
+    display: inline-block;
+    width: 100%;
+    font-family: Helvetica;
+    font-variant: small-caps;
+    font-size: 16px;
+    background-color: #E8ECF0;
+    height: 24px;
+    text-align: center;
+    font-size : 14px;
+    color: #B0B4B8;
+    padding-top: .5em;
+    border-top: 1px solid #D0D4D8;
+    bottom: 0;
+    position: fixed;
+    opacity: .6;
+}
+/* ------- WIN ------- */ 
+.wframe {
+    box-shadow: 2px 2px 8px #808080;
+    position: absolute;
+    display: table;
+    margin: 0 auto;
+} 
+
+.wtitle {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    height: 22px;
+}
+
+
+.wtitlelabel {
+    font-size: 14px;
+    color: #404040;
+    display: inline-block;
+}
+
+.wtitleclose {
+    font-size: 14px;
+    vertical-align: middle;
+    text-align: center;
+    color: #404040;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    margin-top: 2px;
+    width : 22px;
+}
+
+.wcontent {
+    display: table;
+    margin: 1em;
+}
+
+
+.winput {
+    display: table;
+}
+
+.winputrow {
+    display: table-row;
+}
+
+.winputlabel {
+    display: table-cell;
+}
+
+.winputcomp {
+    margin-bottom: 6px;
+    display: table-cell;
+}
+
+.wsubmit {
+    display: table;
+    margin: 0 auto;
+}
+
+.wmessage {
+    color : #FF0000;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+} 
+
+
+.foota {
+    font-size: 9px;
+    color : #202830;
+}
+
+.logincont {
+   margin : 1em;
+}
