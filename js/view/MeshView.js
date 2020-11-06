@@ -56,7 +56,7 @@ var meshView = (function() {
         ctx.fill();
     }
 
-    function drawFace(ly,j,mesh,cp,deg) {
+    function drawFace(ly,j,mesh,cp,deg,opacity) {
         var face=sfaces[j];
         var ctx=gui.getLayer(ly).ctx;
         if (face.texture !== undefined) {
@@ -80,7 +80,7 @@ var meshView = (function() {
         }
 
         var fColor={r:face.color.r,g:face.color.g,b:face.color.b,a:face.color.a};
-        fColor.a=(face.id === highlightedId ? 1 : mOpacity);
+        fColor.a=(face.id === highlightedId ? 1 : (opacity === undefined ? mOpacity : opacity));
         var ld=coord.calcDeg({p0:{x:0,y:0},p1:lightsrc});
         var ll=coord.calcLen({p0:{x:0,y:0},p1:lightsrc});
         var np=coord.nextPoint({x:0,y:0},ll,(ld+(deg === undefined ? lastDeg : deg)));
@@ -101,7 +101,7 @@ var meshView = (function() {
             fColor.a=(dc/2); //0 - 0.5
         }
 
-        var sColor={r:~~(fColor.r/2),g:~~(fColor.g/2),b:~~(fColor.b/2),a:mOpacity};
+        var sColor={r:~~(fColor.r/2),g:~~(fColor.g/2),b:~~(fColor.b/2),a:(opacity === undefined ? mOpacity : opacity)};
         if (selected-1 === j) {
             sColor.a+=.2;
             fColor.a+=.2;
@@ -192,10 +192,10 @@ var meshView = (function() {
         return cp;
     }
 
-    function paintMesh(ly,mesh,cp,deg) {
+    function paintMesh(ly,mesh,cp,deg,opacity) {
         cp=fillSFaces(mesh,cp,deg);
         for(var j=0;j < sfaces.length;j++) {
-            drawFace(ly,j,mesh,cp,deg);
+            drawFace(ly,j,mesh,cp,deg,opacity);
         }
 
     }
@@ -207,12 +207,21 @@ var meshView = (function() {
             drawIdFace(idsLayerId,j,mesh,cp);
         }
 /*
-        var tlbr=meshService.get2DDim((-lastDeg+90)%360);
+        var xtlbr=meshService.getObjDims(layerId,meshService.mesh());
+        var tlbr={topLeft: xtlbr.tl,rightBottom: xtlbr.br};
         var layer=gui.getLayer(layerId);
         var p={x:tlbr.topLeft.x+(layer.w/2),y:tlbr.topLeft.y+(layer.h/2)};
         gui.crossp(layerId,p,'#FF0000');
         var p={x:tlbr.rightBottom.x+(layer.w/2),y:tlbr.rightBottom.y+(layer.h/2)};
         gui.crossp(layerId,p,'#0000FF');
+
+
+        var tlbr=meshService.get2DDim((-lastDeg+90)%360);
+        var p={x:tlbr.topLeft.x+(layer.w/2),y:tlbr.topLeft.y+(layer.h/2)};
+        gui.crossp(layerId,p,'#00FF00');
+        var p={x:tlbr.rightBottom.x+(layer.w/2),y:tlbr.rightBottom.y+(layer.h/2)};
+        gui.crossp(layerId,p,'#00FFFF');
+
         for(var i=0;i < tlbr.fxys.length;i++) {
             var p={x:tlbr.fxys[i].x+(layer.w/2),y:tlbr.fxys[i].y+(layer.h/2)};
             gui.crossp(layerId,p,'#FFFF00');
@@ -231,8 +240,8 @@ var meshView = (function() {
 
     function fitToView() {
         var tlbr=meshService.get2DDim((-lastDeg+90)%360);
-        gui.fitToViewport(layerId,tlbr,10);
-        gui.fitToViewport(idsLayerId,tlbr,10);
+        gui.fitToViewport(layerId,tlbr,1);
+        gui.fitToViewport(idsLayerId,tlbr,1);
         canvasView.requestRepaint();
     }
 

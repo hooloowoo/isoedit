@@ -20,6 +20,8 @@ var editBarView = (function() {
         }
     }
 
+
+    
     function createCoord(pdiv,id) {
         var pframe=util.adiv(pdiv,'frame'+id,'point-frame');
         util.adivhtml(pframe,'id'+id,'coord-title',id);
@@ -72,8 +74,8 @@ var editBarView = (function() {
     }
 
     function createMoveFrame() {
-        faceFrame=util.adiv(divContainer,'movepane');
-        createCoord(faceFrame,'move');
+        var moveFrame=util.adiv(divContainer,'movepane');
+        createCoord(moveFrame,'move');
         document.getElementById('inpmoveX').value='0';
         document.getElementById('inpmoveY').value='0';
         document.getElementById('inpmoveZ').value='0';
@@ -265,6 +267,22 @@ var editBarView = (function() {
         lbl.innerHTML='Texture';
         idiv.appendChild(lbl);
 
+    }
+    
+    function doMagnify() {
+        var mesh=meshService.mesh();
+        var m=parseFloat(document.getElementById('inpMag').value);
+        for(var i=0;i < mesh.faces.length;i++) {
+            var face=mesh.faces[i];
+            for(var j=0;j < face.vertices.length;j++) {
+                var vert=face.vertices[j];
+                vert.x*=m;
+                vert.y*=m;
+                vert.z*=m;
+            }
+        }
+        meshService.save();
+        canvasView.requestRepaint();
     }
 
     function init(div) {

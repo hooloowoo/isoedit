@@ -127,3 +127,20 @@ input:focus, textarea:focus, select:focus {
     cursor: pointer;
     padding-top: 38%;
 }
+
+.mag-frame {
+    margin: 4px 2px 4px 4px;
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    border: 1px solid #585858;
+    background-color: #283038;
+    text-decoration: none;
+    color: #C0FFFF;
+    width: 2em;
+    height: 48px;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}

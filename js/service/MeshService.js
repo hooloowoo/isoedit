@@ -77,12 +77,22 @@ var meshService = (function() {
         return mesh;
     }
 
-    function turn() {
+    function turnVertical() {
         for(var i=0;i < mesh.faces.length;i++) {
             var face=mesh.faces[i];
             for(var j=0;j < face.vertices.length;j++) {
                 var vert=face.vertices[j];
                 vert.z*=-1;
+            }
+        }
+    }
+
+    function turnHorizontal() {
+        for(var i=0;i < mesh.faces.length;i++) {
+            var face=mesh.faces[i];
+            for(var j=0;j < face.vertices.length;j++) {
+                var vert=face.vertices[j];
+                vert.x*=-1;
             }
         }
     }
@@ -97,6 +107,54 @@ var meshService = (function() {
         a.click();
     }
 
+
+
+    function toSpriteImage(n,mag) {
+        var obj=mesh;
+        if (obj !== undefined) {
+            var ly='imgcanvas';
+            gui.addLayer(ly,{fldh:0.5,fldw:1,w:0,h:0,mag:1,mx:0,my:0,mode:0,canvas : null,ctx : null,container : document.getElementById('content'),hidden: true});
+            var layer=gui.getLayer(ly);
+            layer.mag=1/mag;
+            var dims=getObjDims(ly,obj);
+            var xcnt=18;
+            var ycnt=(~~(n/18));
+            var ww=(n === 1 ? dims.tw : (dims.tw)*xcnt);
+            var hh=(n === 1 ? dims.th : (dims.th)*ycnt);
+            var canvasHeight=hh*mag;
+            var canvasWidth=ww*mag;
+            console.log(dims.tw,dims.th,xcnt,ycnt,ww,hh,mag,canvasWidth,canvasHeight);
+            gui.reCreateCanvas(ly,{w:canvasWidth,h:canvasHeight+52});
+            if (n === 1) {
+                var m=gui.getInvXY(ly,{x:dims.tx,y:dims.ty});
+                meshView.paintMesh(ly,obj,m,90,1);
+            } else {
+                var dd=~~(360/n);
+                var ddeg=0;
+                for(var i=0;i < ycnt;i++) {
+                    for(var j=0;j < xcnt;j++) {
+                        var sx=(j*dims.tw);
+                        var sy=((i+1)*dims.th);
+                        var m=gui.getInvXY(ly,{x:sx+dims.tx,y:sy-dims.ty});
+                        var ctx=layer.ctx;
+                        ctx.strokeStyle='#DD0000';
+                        meshView.paintMesh(ly,obj,m,ddeg,1);
+                        ddeg+=dd;
+                    }
+                }
+                var txt="Image size:"+dims.tw+' x '+dims.th+' CP '+dims.tx+':'+(dims.th-dims.ty)+' n:'+n+' mag:'+mag;
+                ctx.fillStyle='#800000';
+                ctx.font="14px Arial";
+                ctx.fillText(txt ,10,canvasHeight+15);
+            }
+            var image=gui.canvasToImage(ly);
+            return image;
+
+//            window.open(image,'_blank');
+//            var win = window.open();
+//            win.document.write('<iframe background="#000000" src="' + image  + '" frameborder="0" style="background-color: #000000; border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+        }
+    }
 
     function getObjDims(ly,obj) {
         var cp={x: 0,y: 0};
@@ -127,65 +185,6 @@ var meshService = (function() {
     }
 
 
-    function createImage(n,mag) {
-        var obj=mesh;
-        if (obj !== undefined) {
-            var ly='imgcanvas';
-            gui.addLayer(ly,{fldh:0.5,fldw:1,w:0,h:0,mag:1,mx:0,my:0,mode:0,canvas : null,ctx : null,container : document.getElementById('content'),hidden: true});
-            var layer=gui.getLayer(ly);
-            layer.mag=1/mag;
-            var dims=getObjDims(ly,obj);
-            var xcnt=18;
-            var ycnt=(~~(n/18));
-            var ww=(n === 1 ? dims.tw : (dims.tw)*xcnt);
-            var hh=(n === 1 ? dims.th : (dims.th)*ycnt);
-            gui.reCreateCanvas(ly,{w:ww*(mag*2),h:(hh*mag*2)+52});
-            if (n === 1) {
-                var sx=0;
-                var sy=0;
-                var m=gui.getInvXY(ly,{x:sx+dims.tx,y:sy+dims.ty});
-                drawObject(ly,obj,m,90);
-            } else {
-                var dd=~~(360/n);
-                var ddeg=0;
-                for(var i=0;i < ycnt;i++) {
-                    for(var j=0;j < xcnt;j++) {
-                        var sx=(j*dims.tw);
-                        var sy=((i+1)*dims.th);
-                        var m=gui.getInvXY(ly,{x:sx+dims.tx,y:sy-dims.ty});
-                        var ctx=layer.ctx;
-                        ctx.strokeStyle='#DD0000';
-                        meshView.paintMesh(ly,obj,m,ddeg);
-                        ddeg+=dd;
-                    }
-                }
-                var txt="Image size:"+dims.tw+' x '+dims.th+' CP '+dims.tx+':'+(dims.th-dims.ty)+' n:'+n+' mag:'+mag;
-//                gui.drawText(ly,gui.getInvXY(ly,{x:10,y:hh+((dims.th/2))+1}),txt,'#800000',0,14);
-                console.log(txt);
-                gui.drawText(ly,txt,gui.getInvXY(ly,{x:100,y:hh+((dims.th/2))+1}),'#800000',null,44,0);
-
-//                ctx.fillStyle='#800000';
-//                ctx.font="14px Arial";
-//                ctx.fillText("Image size:"+dims.tw+' x '+dims.th+' CP '+dims.tx+':'+dims.ty+' n:'+n+' mag:'+mag ,10,hh);
-            }
-
-            var image=gui.canvasToImage(ly);
-//            window.open(image,'_blank');
-
-
-
-            var win = window.open();
-            win.document.write('<iframe background="#000000" src="' + image  + '" frameborder="0" style="background-color: #000000; border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
-        }
-
-
-    }
-
-    function toImage() {
-        createImage(90,3);
-    }
-
-
     function get2DDim(deg) {
         var tl;
         var br;
@@ -195,9 +194,10 @@ var meshService = (function() {
             for(var j=0;j < face.vertices.length;j++) {
                 var vert=face.vertices[j];
                 var p=coord.flatXYZ(vert,{x:0,y:0},deg);
-                var x=(p.x+p.y)*2;
+                var x=p.x+p.y;
                 var y=(p.x-p.y)+(vert.z*2);
-
+                x=parseInt(x+.5)
+                y=parseInt(y+.5);
                 var fxy={x:x,y:y};
                 fxys.push(fxy);
                 if (tl === undefined) tl={x:fxy.x,y:fxy.y};
@@ -231,13 +231,15 @@ var meshService = (function() {
         init: init,
         saveToFile : saveToFile,
         get2DDim : get2DDim,
-        toImage: toImage,
+        toSpriteImage: toSpriteImage,
         mesh: getMesh,
         addFace : addFace,
         removeFace : removeFace,
         newMesh: newMesh,
-        turn: turn,
+        turnVertical : turnVertical,
+        turnHorizontal : turnHorizontal,
         save: save,
+        getObjDims: getObjDims,
         loadX3d : loadX3d,
         load: load
     };

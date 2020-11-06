@@ -7,20 +7,8 @@ var toolBarView = (function() {
     var isDarkMode=true;
     var isWheelRotate=false;
     var isWheelOpacity=false;
-    var isTurned=false;
-
-    var isAddSection=false;
-    var isSelectSection=false;
-    var isEditSection=false;
-    var isEditDestination=false;
-    var isAvatarVisible=false;
-    var isConnectSection=false;
-
-    var isSaveInProgress=false;
-    var isLoadInProgress=false;
-    var isSchedEditorVisible=false;
-
-    var addGroup=['btnClrSel','btnCreateSection','btnCreateSignalSection','btnUndo'];
+    var isVerticalTurned=false;
+    var isHorizontalTurned=false;
 
     function setClock(y,mon,d,h,min,s) {
         document.getElementById('digiclockdate').innerHTML=new Date(y,mon,d).toDateString();
@@ -34,26 +22,9 @@ var toolBarView = (function() {
         document.getElementById('digiclocktime').innerHTML=sTime;
     }
     
-    function createClock() {
-        var btn=util.adiv(divContainer,'digiclock');
-        util.adivhtml(btn,'digiclockdate','','May 3rd, 2020');
-        util.adivhtml(btn,'digiclocktime','digiclocknum','04:00:00');
-    }
-
     function createIdPane() {
         var btn=util.adiv(divContainer,'idpane');
         util.adivhtml(btn,'idtitle','','name');
-        var inp=document.createElement('input');
-        inp.id='inpName';
-        btn.appendChild(inp);
-        inp.readOnly=true;
-        var name=localStorage.getItem('avatarName');
-        inp.value=((name === undefined) || (name === null) ? '' : name);
-    }
-
-    function createPwdPane() {
-        var btn=util.adiv(divContainer,'idpane');
-        util.adivhtml(btn,'idtitle','','password');
         var inp=document.createElement('input');
         inp.id='inpName';
         btn.appendChild(inp);
@@ -76,6 +47,21 @@ var toolBarView = (function() {
         btn.onclick=fn;
     }
 
+    function createAButton(id,text,fn) {
+        var a=document.createElement('a');
+        a.id=id;
+        a.className='togglebuttonlink';
+        divContainer.appendChild(a);
+
+        var atxt=document.createElement('a');
+        atxt.className='buttontext';
+        a.appendChild(atxt);
+        atxt.innerHTML=text;
+        a.onclick=fn;
+        atxt.onclick=fn;
+        a.download='new.png';
+        atxt.download='new.png';
+    }
 
     function switchGrid() {
         isGrid=!isGrid;
@@ -83,9 +69,16 @@ var toolBarView = (function() {
         canvasView.requestRepaint();
     }
 
-    function switchTurn() {
-        isTurned=!isTurned;
-        meshService.turn();
+    function turnVertical() {
+        isVerticalTurned=!isVerticalTurned;
+        meshService.turnVertical();
+        showIndicators();
+        canvasView.requestRepaint();
+    }
+
+    function turnHorizontal() {
+        isHorizontalTurned=!isHorizontalTurned;
+        meshService.turnHorizontal();
         showIndicators();
         canvasView.requestRepaint();
     }
@@ -116,8 +109,6 @@ var toolBarView = (function() {
         canvasView.requestRepaint();
     }
 
-
-
     function showIndicator(id,flag) {
         var div=document.getElementById('ind_'+id);
         if (div !== null) {
@@ -127,7 +118,8 @@ var toolBarView = (function() {
 
     function showIndicators() {
         showIndicator('btnGrid',isGrid);
-        showIndicator('btnTurn',isTurned);
+        showIndicator('btnTurnH',isHorizontalTurned);
+        showIndicator('btnTurnV',isVerticalTurned);
         showIndicator('btnLines',isDrawLines);
         showIndicator('btnDark',isDarkMode);
         showIndicator('btnRotate',isWheelRotate);
@@ -198,6 +190,24 @@ var toolBarView = (function() {
 
     }
 
+    function createMagInput() {
+        var magFrame=util.adiv(divContainer,'magpane');
+        var pframe=util.adiv(magFrame,'framemag','mag-frame');
+        util.adivhtml(pframe,'idmag','coord-title','mag');
+        var inpx=document.createElement('input');
+        inpx.id='inpMag';
+        inpx.className='inpCoord';
+        pframe.appendChild(inpx);
+        inpx.value='1';
+    }
+
+
+    function doExport(e) {
+        var m = parseFloat(document.getElementById('inpMag').value);
+        var img = meshService.toSpriteImage(90, m);
+        var a = document.getElementById('btnExport');
+        e.target.href = img;
+    }
 
     function init(div) {
         divContainer=div;
@@ -211,7 +221,9 @@ var toolBarView = (function() {
         createLoadButton('inpUpload',meshService.load,'Load');
         createLoadButton('inpUploadX3d',meshService.loadX3d,'Ld x3d');
         createButton('btnSave','Save',meshService.saveToFile);
-        createButton('btnLoad','Export',meshService.toImage);
+        createMagInput();
+        createAButton('btnExport','Export',doExport);
+
 
         createToggleButton('btnGrid','Grid',switchGrid);
 //        createToggleButton('btnDark','Dark',switchDarkMode);
@@ -220,7 +232,8 @@ var toolBarView = (function() {
         createToggleButton('btnLines','Lines',switchLines);
 
         createButton('btnLoad','Fit',meshView.fitToView);
-        createToggleButton('btnTurn','Turn',switchTurn);
+        createToggleButton('btnTurnV','V Turn',turnVertical);
+        createToggleButton('btnTurnH','H Turn',turnHorizontal);
 
 
         update();
@@ -252,7 +265,6 @@ var toolBarView = (function() {
         isDarkMode: getIsDarkMode,
         isWheelRotate: getIsWheelRotate,
         isWheelOpacity: getIsWheelOpacity,
-        setClock : setClock,
         init: init
     };
 

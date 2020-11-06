@@ -573,7 +573,7 @@ var gui = (function () {
         layer.canvas.id=ly;
         layer.canvas.className='mapcanvas';
         if (!layer.hidden) contentDiv.appendChild(layer.canvas);
-        layer.canvas.width=(dim === undefined ? layer.w : dim.h);
+        layer.canvas.width=(dim === undefined ? layer.w : dim.w);
         layer.canvas.height=(dim === undefined ? layer.h : dim.h);
         layer.ctx = layer.canvas.getContext("2d");
     }
@@ -597,7 +597,7 @@ var gui = (function () {
             layer.mag=Math.abs(magy);
         }
         layer.mx=layer.w/2;
-        layer.my=-(layer.h/4.8);
+        layer.my=-(layer.h/4);
         return layer;
     }
 

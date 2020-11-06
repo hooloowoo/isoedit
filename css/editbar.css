@@ -16,6 +16,10 @@ div#editbar {
     display: inline-block;
 }
 
+#magpane {
+    display: inline-block;
+}
+
 .inpCoord {
     position: absolute;
     background-color: #303840;
@@ -46,6 +50,7 @@ div#editbar {
     position: relative;
     cursor: pointer;
 }
+
 
 .coord-title {
     position: absolute;
