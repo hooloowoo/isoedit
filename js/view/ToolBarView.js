@@ -210,12 +210,7 @@ var toolBarView = (function() {
 
     function init(div) {
         divContainer=div;
-
-
-
-//        createClock();
         createIdPane();
-//        createPwdPane();
         createButton('btnLogin','New',meshService.newMesh);
         createLoadButton('inpUpload',meshService.load,'Load');
         createLoadButton('inpUploadX3d',meshService.loadX3d,'Ld x3d');
@@ -223,19 +218,13 @@ var toolBarView = (function() {
         createMagInput();
         createAButton('btnExport','Export Sprite',doExport);
         createAButton('btnExportOne','Export One',doExportOne);
-
-
         createToggleButton('btnGrid','Grid',switchGrid);
-//        createToggleButton('btnDark','Dark',switchDarkMode);
         createToggleButton('btnRotate','Rotate',switchRotate);
         createToggleButton('btnOpacity','Opacity',switchOpacity);
         createToggleButton('btnLines','Lines',switchLines);
-
         createButton('btnLoad','Fit',meshView.fitToView);
         createToggleButton('btnTurnV','V Turn',turnVertical);
         createToggleButton('btnTurnH','H Turn',turnHorizontal);
-
-
         update();
     }
 

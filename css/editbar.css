@@ -35,6 +35,7 @@ div#editbar {
 }
 
 .point-frame {
+    vertical-align: top;
     margin: 4px 8px 4px 4px;
     font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
     font-size: 24px;
@@ -62,6 +63,7 @@ div#editbar {
 }
 
 .edit-togglebuttonlink {
+    vertical-align: top;
     margin: 4px;
     font-size: 70%;
     border: 1px solid #585858;
@@ -96,6 +98,7 @@ div#editbar {
 }
 
 .edit-upload {
+    vertical-align: top;
     margin: 4px;
     font-size: 70%;
     border: 1px solid #585858;

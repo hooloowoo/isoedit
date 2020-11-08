@@ -1,5 +1,6 @@
 /* toolbar button --- */
 .togglebuttonlink {
+    vertical-align: top;
     margin: 4px;
     font-size: 70%;
     border: 1px solid #585858;
@@ -64,6 +65,7 @@ div#toolbar {
 
 #idpane {
     margin: 4px 8px 4px 4px;
+    vertical-align: top;
     font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
     font-size: 200%;
     border: 1px solid #585858;
@@ -78,6 +80,7 @@ div#toolbar {
     position: relative;
     cursor: pointer;
 }
+
 #idtitle {
     display: inline-block;
     position: absolute;
@@ -88,6 +91,7 @@ div#toolbar {
 }
 
 #inpName {
+    vertical-align: top;
     display: inline-block;
     position: absolute;
     height: 26px;
@@ -113,6 +117,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .upload {
+    vertical-align: top;
     margin: 4px;
     font-size: 70%;
     border: 1px solid #585858;
@@ -143,6 +148,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .mag-frame {
+    vertical-align: top;
     margin: 4px 2px 4px 4px;
     font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
     font-size: 24px;
