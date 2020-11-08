@@ -4,9 +4,9 @@ var meshView = (function() {
     var idsLayerId='ids';
     var lastDeg=0;
     var camerap={x:30000,y:-40000,z:-20000};
-    var lightsrc={x:1,y:80,z:240};
+    var lightsrc={x:0,y:2000,z:2400};
     var highlightedId=-1;
-    var mOpacity=.1;
+    var mOpacity=.7;
     var sfaces=[];
 
     var selected=0; // Starts at 1. To convert sfaces index decrease by 1.
@@ -240,9 +240,11 @@ var meshView = (function() {
 
     function fitToView() {
         var tlbr=meshService.get2DDim((-lastDeg+90)%360);
-        gui.fitToViewport(layerId,tlbr,1);
-        gui.fitToViewport(idsLayerId,tlbr,1);
-        canvasView.requestRepaint();
+        if ((tlbr.topLeft !== undefined) && (tlbr.rightBottom !== undefined)) {
+            gui.fitToViewport(layerId, tlbr, 1);
+            gui.fitToViewport(idsLayerId, tlbr, 1);
+            canvasView.requestRepaint();
+        }
     }
 
 

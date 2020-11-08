@@ -2,6 +2,7 @@ var editBarView = (function() {
 
     var divContainer;
     var isSquare=true;
+    var isColorLocked=false;
 
     var faceFrame=null;
     var actFace;
@@ -20,8 +21,6 @@ var editBarView = (function() {
         }
     }
 
-
-    
     function createCoord(pdiv,id) {
         var pframe=util.adiv(pdiv,'frame'+id,'point-frame');
         util.adivhtml(pframe,'id'+id,'coord-title',id);
@@ -101,6 +100,10 @@ var editBarView = (function() {
         setSquare(isSquare);
     }
 
+    function switchLockColor() {
+        isColorLocked=!isColorLocked;
+        showIndicators();
+    }
 
     function setSquare(val) {
         isSquare=val;
@@ -127,6 +130,7 @@ var editBarView = (function() {
 
     function showIndicators() {
         showIndicator('btnSquare',isSquare);
+        showIndicator('btnLockColor',isColorLocked);
 
     }
 
@@ -290,6 +294,7 @@ var editBarView = (function() {
         createFaceFrame();
         createToggleButton('btnSquare','Square',switchSquare);
         createColorButton('btnColor',switchSquare,'Color');
+        createToggleButton('btnLockColor','Lock Color',switchLockColor);
 
         createButton('btnNew','New',newFace);
         createButton('btnCp','Copy',cpFace);
@@ -311,7 +316,13 @@ var editBarView = (function() {
             document.getElementById('inpp'+i+'Y').value=vert.y;
             document.getElementById('inpp'+i+'Z').value=vert.z;
         }
-        document.getElementById('btnColor').value=gui.rgbToHex(face.color.r,face.color.g,face.color.b);
+        if (isColorLocked) {
+            if (actFace !== undefined) {
+                var inp=document.getElementById('btnColor');
+                actFace.color=gui.hexToRgb(inp.value);
+            }
+        }
+        else document.getElementById('btnColor').value=gui.rgbToHex(face.color.r,face.color.g,face.color.b);
         setSquare(face.vertices.length == 4);
     }
 

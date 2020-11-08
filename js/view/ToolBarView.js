@@ -10,26 +10,18 @@ var toolBarView = (function() {
     var isVerticalTurned=false;
     var isHorizontalTurned=false;
 
-    function setClock(y,mon,d,h,min,s) {
-        document.getElementById('digiclockdate').innerHTML=new Date(y,mon,d).toDateString();
-        var sTime='';
-        if (h < 10) sTime+='0';
-        sTime+=h+':';
-        if (min < 10) sTime+='0';
-        sTime+=min+':';
-        if (s < 10) sTime+='0';
-        sTime+=s;
-        document.getElementById('digiclocktime').innerHTML=sTime;
-    }
     
     function createIdPane() {
         var btn=util.adiv(divContainer,'idpane');
         util.adivhtml(btn,'idtitle','','name');
         var inp=document.createElement('input');
         inp.id='inpName';
+        inp.oninput=function (e) {
+            var name=e.target.value;
+            meshService.setName(name);
+        };
         btn.appendChild(inp);
-        inp.readOnly=true;
-        var name=localStorage.getItem('avatarName');
+        var name=meshService.mesh().name;
         inp.value=((name === undefined) || (name === null) ? '' : name);
     }
 
@@ -54,7 +46,7 @@ var toolBarView = (function() {
         divContainer.appendChild(a);
 
         var atxt=document.createElement('a');
-        atxt.className='buttontext';
+        atxt.className='abuttontext';
         a.appendChild(atxt);
         atxt.innerHTML=text;
         a.onclick=fn;
@@ -202,10 +194,17 @@ var toolBarView = (function() {
     }
 
 
+    function doExportOne(e) {
+        var m = parseFloat(document.getElementById('inpMag').value);
+        var img = meshService.toSpriteImage(1, m);
+        e.target.download=document.getElementById('inpName').value;
+        e.target.href = img;
+    }
+
     function doExport(e) {
         var m = parseFloat(document.getElementById('inpMag').value);
         var img = meshService.toSpriteImage(90, m);
-        var a = document.getElementById('btnExport');
+        e.target.download=document.getElementById('inpName').value;
         e.target.href = img;
     }
 
@@ -222,7 +221,8 @@ var toolBarView = (function() {
         createLoadButton('inpUploadX3d',meshService.loadX3d,'Ld x3d');
         createButton('btnSave','Save',meshService.saveToFile);
         createMagInput();
-        createAButton('btnExport','Export',doExport);
+        createAButton('btnExport','Export Sprite',doExport);
+        createAButton('btnExportOne','Export One',doExportOne);
 
 
         createToggleButton('btnGrid','Grid',switchGrid);

@@ -15,6 +15,12 @@
     cursor: pointer;
 }
 
+a {
+    color: #E0E0E0;
+}
+
+
+
 .toggleindicator {
     position: absolute;
     top : 5px;
@@ -29,6 +35,14 @@
 .buttontext {
     position: relative;
     top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.abuttontext {
+    text-decoration: none;
+    position: relative;
+    top: 25%;
     transform: translateY(-50%);
     cursor: pointer;
 }

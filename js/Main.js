@@ -11,8 +11,8 @@ var main = (function () {
         editBarView.init(document.getElementById('editbar'));
         hidService.init(divContainer);
         animService.init();
-        meshService.init();
         canvasView.init(divContainer,function() {
+            meshService.init();
             onresize();
         });
     }
